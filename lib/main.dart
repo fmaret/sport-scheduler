@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'notification.dart' as custom_notification;
+import 'program_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState(){
     super.initState();
-    custom_notification.Notification.initialize(custom_notification.flutterLocalNotificationsPlugin);
+    custom_notification.Notification.initialize();
   }
 
   @override
@@ -46,25 +47,40 @@ class _HomePageState extends State<HomePage> {
 
           ),
           body: Center(
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20)
-              ),
-              width: 200,
-              height: 80,
-              child: ElevatedButton(
-                onPressed: (){
-                  custom_notification.Notification.showBigTextNotification(
-                      title: "Canard",
-                      body: "Coin Coin",
-                      fln: custom_notification.flutterLocalNotificationsPlugin
-                  );
+            child: Column(
+              children: [
+                Container(decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)
+                  ),
+                  width: 200,
+                  height: 80,
+                  child: ElevatedButton(
+                    onPressed: (){
+                      custom_notification.Notification.sendNotification(
+                        title: "Canard",
+                        body: "Coin Coin",
+                      );
                   // custom_notification.Notification.schedulePeriodicNotification(title: "Canard", body: "Coin Coin");
-                }, child: const Text("Envoyer la notification"),
+                    }, child: const Text("Envoyer la notification"),
+                  ),
+                ),
+                Container(decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)
+                  ),
+                  width: 200,
+                  height: 80,
+                  child: ElevatedButton(
+                  onPressed: (){
+                    programs[0].startProgram();
+                // custom_notification.Notification.schedulePeriodicNotification(title: "Canard", body: "Coin Coin");
+                  }, child: const Text("S'abonner au programme test"),
+                ),
               ),
-            ),
+              ]
+              ,
           )),
-    );
+    ));
   }
 }
